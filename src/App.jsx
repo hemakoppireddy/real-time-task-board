@@ -5,7 +5,13 @@ import { useTaskStore } from "./store/taskStore";
 import Column from "./components/Column";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ErrorMessage from "./components/ErrorMessage";
-import "./index.css";
+// import "./index.css";
+import "./styles/base.css";
+import "./styles/layout.css";
+import "./styles/components.css";
+import "./styles/animations.css";
+import "./styles/responsive.css";
+
 
 function App() {
   const {

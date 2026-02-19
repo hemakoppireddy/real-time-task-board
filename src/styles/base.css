@@ -1,0 +1,39 @@
+/* =====================
+   RESET & BASE
+===================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+input,
+textarea {
+  font-family: inherit;
+}
+
+/* =====================
+   MOTION VARIABLES
+===================== */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fast: 120ms;
+  --normal: 220ms;
+  --slow: 360ms;
+}
