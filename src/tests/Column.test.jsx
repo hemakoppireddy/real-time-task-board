@@ -20,7 +20,6 @@ describe("Column Integration - Optimistic Add + Rollback", () => {
   });
 
   it("optimistically adds task and rolls back on failure", async () => {
-    // Force API failure
     vi.spyOn(api, "addTaskApi").mockRejectedValue(
       new Error("API Failed")
     );
@@ -45,10 +44,8 @@ describe("Column Integration - Optimistic Add + Rollback", () => {
 
     fireEvent.click(addButton);
 
-    // 1️⃣ Optimistic task appears immediately
     expect(screen.getByText("Temp Task")).toBeInTheDocument();
 
-    // 2️⃣ After API failure, it disappears
     await waitFor(() => {
       expect(
         screen.queryByText("Temp Task")

@@ -1,5 +1,3 @@
-// src/components/Column.jsx
-
 import { useDrop } from "react-dnd";
 import { useTaskStore } from "../store/taskStore";
 import TaskCard from "./TaskCard";

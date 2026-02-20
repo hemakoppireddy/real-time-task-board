@@ -1,5 +1,3 @@
-// src/store/taskStore.js
-
 import { create } from "zustand";
 import {
   fetchTasks,
@@ -16,10 +14,6 @@ export const useTaskStore = create((set, get) => ({
   columns: [],
   loading: false,
   error: null,
-
-  // =============================
-  // FETCH INITIAL DATA
-  // =============================
   fetchInitialData: async () => {
     set({ loading: true, error: null });
 
@@ -43,10 +37,6 @@ export const useTaskStore = create((set, get) => ({
       });
     }
   },
-
-  // =============================
-  // ADD TASK (Optimistic)
-  // =============================
   addTask: async (columnId, title, description) => {
     const tempId = "temp-" + uuidv4();
 
@@ -56,8 +46,6 @@ export const useTaskStore = create((set, get) => ({
       title,
       description,
     };
-
-    // Optimistic UI update
     set((state) => ({
       tasks: [...state.tasks, newTask],
     }));
@@ -65,7 +53,6 @@ export const useTaskStore = create((set, get) => ({
     try {
       const savedTask = await addTaskApi(newTask);
 
-      // Replace temp task with saved task
       set((state) => ({
         tasks: state.tasks.map((t) =>
           t.id === tempId ? savedTask : t
@@ -84,9 +71,6 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // =============================
-  // UPDATE TASK (Optimistic)
-  // =============================
   updateTask: async (taskId, updatedFields) => {
     const originalTasks = get().tasks;
     const originalTask = originalTasks.find(
@@ -97,7 +81,6 @@ export const useTaskStore = create((set, get) => ({
 
     const updatedTask = { ...originalTask, ...updatedFields };
 
-    // Optimistic update
     set({
       tasks: originalTasks.map((t) =>
         t.id === taskId ? updatedTask : t
@@ -118,13 +101,9 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // =============================
-  // DELETE TASK (Optimistic)
-  // =============================
   deleteTask: async (taskId) => {
     const originalTasks = get().tasks;
 
-    // Optimistic remove
     set({
       tasks: originalTasks.filter((t) => t.id !== taskId),
     });
@@ -143,9 +122,6 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // =============================
-  // MOVE TASK (Optimistic)
-  // =============================
   moveTask: async (taskId, destColumnId) => {
     const originalTasks = get().tasks;
 
@@ -172,9 +148,6 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // =============================
-  // LOCAL PERSISTENCE
-  // =============================
   persistState: () => {
     const { tasks, columns } = get();
     localStorage.setItem(

@@ -1,5 +1,3 @@
-// src/components/TaskCard.jsx
-
 import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { Pencil, Trash2 } from "lucide-react";

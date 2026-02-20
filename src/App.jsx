@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import { useEffect } from "react";
 import { useTaskStore } from "./store/taskStore";
 import Column from "./components/Column";

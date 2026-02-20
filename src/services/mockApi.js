@@ -1,7 +1,5 @@
-// src/services/mockApi.js
-
-const API_DELAY = 1000; // Simulate network latency
-const FAILURE_RATE = 0.2; // 20% chance of API call failing
+const API_DELAY = 1000; 
+const FAILURE_RATE = 0.2; 
 
 let tasks = [
   { id: 'task-1', columnId: 'todo', title: 'Plan project sprint', description: 'Outline epics and user stories.' },
