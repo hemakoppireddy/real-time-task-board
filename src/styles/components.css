@@ -1,89 +1,108 @@
-/* =====================
-   ERROR
-===================== */
+/* Error */
 .error {
-  background: linear-gradient(135deg, #7f1d1d, #991b1b);
-  color: #fee2e2;
+  background: #fdecea;
+  color: #b91c1c;
   padding: 0.75rem 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
-  font-size: 0.95rem;
+  border-left: 4px solid #b91c1c;
 }
 
-/* =====================
-   TASK CARD
-===================== */
+/* Task Card */
 .task-card {
-  background: linear-gradient(145deg, #1e293b, #020617);
-  border-radius: 14px;
-  padding: 0.9rem;
-  margin-bottom: 0.75rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 10px rgba(0, 38, 61, 0.06);
+  transition: all var(--normal) var(--ease-out);
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 38, 61, 0.12);
 }
 
 .task-card h3 {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.5rem;
   font-size: 1rem;
 }
 
 .task-card p {
   margin: 0;
   font-size: 0.9rem;
-  color: #cbd5f5;
+  color: #475569;
 }
 
-/* =====================
-   TASK ACTIONS
-===================== */
+/* Task Actions */
 .task-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.6rem;
+  margin-top: 0.75rem;
 }
 
 .task-actions button {
-  padding: 0.35rem 0.6rem;
+  padding: 0.4rem 0.7rem;
   font-size: 0.8rem;
-  background: #334155;
-  color: #e5e7eb;
+  background: #e6f2f7;
+  color: var(--primary-dark);
+  border-radius: 8px;
+  transition: all var(--fast) var(--ease-out);
 }
 
-/* =====================
-   ADD TASK FORM
-===================== */
+.task-actions button:hover {
+  background: #cce6f0;
+}
+
+/* Add Task Form */
 .add-task-form input,
 .add-task-form textarea {
   width: 100%;
-  padding: 0.55rem;
+  padding: 0.6rem;
   border-radius: 10px;
-  border: 1px solid #334155;
-  background: #020617;
-  color: #f8fafc;
-  margin-bottom: 0.45rem;
+  border: 1px solid var(--border-light);
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
 }
 
 .add-task-form button {
   width: 100%;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: var(--primary);
   color: white;
-  padding: 0.55rem;
+  padding: 0.7rem;
+  border-radius: 10px;
+  transition: all var(--fast) var(--ease-out);
 }
 
-/* =====================
-   MODAL
-===================== */
+.add-task-form button:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+/* Modal */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(2, 6, 23, 0.85);
+  background: rgba(0, 38, 61, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modal {
-  background: #020617;
-  padding: 1.25rem;
-  border-radius: 18px;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
   width: 320px;
+  box-shadow: 0 20px 40px rgba(0, 38, 61, 0.15);
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  margin-bottom: 0.75rem;
 }

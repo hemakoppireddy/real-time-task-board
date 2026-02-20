@@ -1,46 +1,41 @@
-/* =====================
-   APP SHELL
-===================== */
 .app-container {
-  padding: 1.25rem;
+  padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .app-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
   font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  color: var(--primary-dark);
 }
 
-/* =====================
-   BOARD
-===================== */
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
-/* =====================
-   COLUMN
-===================== */
 .column {
-  background: #020617;
+  background: var(--card-bg);
   border-radius: 16px;
-  padding: 1rem;
+  padding: 1.25rem;
   min-height: 70vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 8px 20px rgba(0, 38, 61, 0.08);
+  transition: transform var(--normal) var(--ease-out);
+}
+
+.column:hover {
+  transform: translateY(-2px);
 }
 
 .column-title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #f8fafc;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
 }

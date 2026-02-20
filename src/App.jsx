@@ -34,7 +34,7 @@ function App() {
 
   return (
     <main className="app-container">
-      <h1 className="app-title">🗂️ Task Board</h1>
+      <h1 className="app-title">Task Board</h1>
 
       {error && <ErrorMessage message={error} />}
 

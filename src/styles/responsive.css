@@ -8,8 +8,4 @@
   .board {
     grid-template-columns: 1fr;
   }
-
-  .app-title {
-    font-size: 1.4rem;
-  }
 }

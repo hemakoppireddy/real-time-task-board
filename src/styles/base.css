@@ -1,39 +1,34 @@
-/* =====================
-   RESET & BASE
-===================== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #004466;
+  --primary-dark: #00263D;
+  --primary-light: #0e5a7a;
+  --bg-light: #f4f8fb;
+  --card-bg: #ffffff;
+  --border-light: #e3edf3;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fast: 120ms;
+  --normal: 220ms;
+  --slow: 360ms;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg-light);
+  color: #1e293b;
 }
 
 button {
   cursor: pointer;
   border: none;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-input,
-textarea {
   font-family: inherit;
-}
-
-/* =====================
-   MOTION VARIABLES
-===================== */
-:root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --fast: 120ms;
-  --normal: 220ms;
-  --slow: 360ms;
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useDrag } from "react-dnd";
+import { Pencil, Trash2 } from "lucide-react";
 import { useTaskStore } from "../store/taskStore";
 import EditTaskModal from "./EditTaskModal";
 
@@ -39,13 +40,11 @@ function TaskCard({ task }) {
         <p>{task.description}</p>
 
         <div className="task-actions">
-          <button onClick={() => setEditing(true)}>Edit</button>
-          <button
-            onKeyDown={(e) => {
-              if (e.key === "Delete") handleDelete();
-            }}
-          >
-            Delete
+          <button onClick={() => setEditing(true)}>
+            <Pencil size={14} />
+          </button>
+          <button onClick={handleDelete}>
+            <Trash2 size={14} />
           </button>
         </div>
       </div>
