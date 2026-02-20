@@ -11,9 +11,7 @@ function Column({ column }) {
   const tasks = useTaskStore((state) => state.tasks);
   const moveTask = useTaskStore((state) => state.moveTask);
 
-  const columnTasks = tasks.filter(
-    (task) => task.columnId === column.id
-  );
+  const columnTasks = tasks.filter((task) => task.columnId === column.id);
 
   const [, dropRef] = useDrop(() => ({
     accept: ITEM_TYPE,
@@ -38,9 +36,11 @@ function Column({ column }) {
       </h2>
 
       <div className="task-list">
-        {columnTasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+        {columnTasks.length === 0 ? (
+          <div className="empty-state">No tasks yet</div>
+        ) : (
+          columnTasks.map((task) => <TaskCard key={task.id} task={task} />)
+        )}
       </div>
 
       <AddTaskForm columnId={column.id} />

@@ -12,17 +12,14 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 export const useTaskStore = create((set, get) => ({
-  // --------------------
-  // STATE
-  // --------------------
   tasks: [],
   columns: [],
   loading: false,
   error: null,
 
-  // --------------------
+  // =============================
   // FETCH INITIAL DATA
-  // --------------------
+  // =============================
   fetchInitialData: async () => {
     set({ loading: true, error: null });
 
@@ -37,6 +34,8 @@ export const useTaskStore = create((set, get) => ({
         columns: columnsData,
         loading: false,
       });
+
+      get().persistState();
     } catch (err) {
       set({
         error: err.message,
@@ -45,9 +44,9 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // --------------------
-  // ADD TASK (OPTIMISTIC)
-  // --------------------
+  // =============================
+  // ADD TASK (Optimistic)
+  // =============================
   addTask: async (columnId, title, description) => {
     const tempId = "temp-" + uuidv4();
 
@@ -58,25 +57,26 @@ export const useTaskStore = create((set, get) => ({
       description,
     };
 
-    // 1️⃣ Optimistic UI update
+    // Optimistic UI update
     set((state) => ({
       tasks: [...state.tasks, newTask],
     }));
 
     try {
-      // 2️⃣ API call
       const savedTask = await addTaskApi(newTask);
 
-      // 3️⃣ Replace temp task with real task
+      // Replace temp task with saved task
       set((state) => ({
-        tasks: state.tasks.map((task) =>
-          task.id === tempId ? savedTask : task
+        tasks: state.tasks.map((t) =>
+          t.id === tempId ? savedTask : t
         ),
       }));
+
+      get().persistState();
     } catch (err) {
-      // 4️⃣ Rollback on failure
+      // Rollback
       set((state) => ({
-        tasks: state.tasks.filter((task) => task.id !== tempId),
+        tasks: state.tasks.filter((t) => t.id !== tempId),
         error: err.message,
       }));
 
@@ -84,29 +84,31 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // --------------------
-  // UPDATE TASK (OPTIMISTIC)
-  // --------------------
+  // =============================
+  // UPDATE TASK (Optimistic)
+  // =============================
   updateTask: async (taskId, updatedFields) => {
     const originalTasks = get().tasks;
-    const existingTask = originalTasks.find((t) => t.id === taskId);
+    const originalTask = originalTasks.find(
+      (t) => t.id === taskId
+    );
 
-    if (!existingTask) return;
+    if (!originalTask) return;
 
-    const updatedTask = { ...existingTask, ...updatedFields };
+    const updatedTask = { ...originalTask, ...updatedFields };
 
-    // 1️⃣ Optimistic update
+    // Optimistic update
     set({
-      tasks: originalTasks.map((task) =>
-        task.id === taskId ? updatedTask : task
+      tasks: originalTasks.map((t) =>
+        t.id === taskId ? updatedTask : t
       ),
     });
 
     try {
-      // 2️⃣ API call
       await updateTaskApi(updatedTask);
+      get().persistState();
     } catch (err) {
-      // 3️⃣ Rollback FULL snapshot
+      // Rollback
       set({
         tasks: originalTasks,
         error: err.message,
@@ -116,22 +118,22 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // --------------------
-  // DELETE TASK (OPTIMISTIC)
-  // --------------------
+  // =============================
+  // DELETE TASK (Optimistic)
+  // =============================
   deleteTask: async (taskId) => {
     const originalTasks = get().tasks;
 
-    // 1️⃣ Optimistic remove
+    // Optimistic remove
     set({
-      tasks: originalTasks.filter((task) => task.id !== taskId),
+      tasks: originalTasks.filter((t) => t.id !== taskId),
     });
 
     try {
-      // 2️⃣ API call
       await deleteTaskApi(taskId);
+      get().persistState();
     } catch (err) {
-      // 3️⃣ Rollback
+      // Rollback
       set({
         tasks: originalTasks,
         error: err.message,
@@ -141,26 +143,26 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // --------------------
-  // MOVE TASK (OPTIMISTIC)
-  // --------------------
+  // =============================
+  // MOVE TASK (Optimistic)
+  // =============================
   moveTask: async (taskId, destColumnId) => {
     const originalTasks = get().tasks;
 
-    // 1️⃣ Optimistic move
+    // Optimistic move
     set({
-      tasks: originalTasks.map((task) =>
-        task.id === taskId
-          ? { ...task, columnId: destColumnId }
-          : task
+      tasks: originalTasks.map((t) =>
+        t.id === taskId
+          ? { ...t, columnId: destColumnId }
+          : t
       ),
     });
 
     try {
-      // 2️⃣ API call
       await moveTaskApi(taskId, destColumnId);
+      get().persistState();
     } catch (err) {
-      // 3️⃣ Rollback
+      // Rollback
       set({
         tasks: originalTasks,
         error: err.message,
@@ -170,9 +172,9 @@ export const useTaskStore = create((set, get) => ({
     }
   },
 
-  // --------------------
+  // =============================
   // LOCAL PERSISTENCE
-  // --------------------
+  // =============================
   persistState: () => {
     const { tasks, columns } = get();
     localStorage.setItem(
@@ -184,7 +186,11 @@ export const useTaskStore = create((set, get) => ({
   loadPersistedState: () => {
     const saved = localStorage.getItem("taskBoardState");
     if (saved) {
-      set(JSON.parse(saved));
+      const parsed = JSON.parse(saved);
+      set({
+        tasks: parsed.tasks || [],
+        columns: parsed.columns || [],
+      });
     }
   },
 }));

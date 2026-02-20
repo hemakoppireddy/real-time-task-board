@@ -1,7 +1,13 @@
 function LoadingSpinner() {
   return (
-    <div role="status" aria-live="polite" className="spinner">
-      Loading tasks...
+    <div className="skeleton-wrapper">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="skeleton-column">
+          <div className="skeleton-card"></div>
+          <div className="skeleton-card"></div>
+          <div className="skeleton-card"></div>
+        </div>
+      ))}
     </div>
   );
 }

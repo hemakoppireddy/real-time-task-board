@@ -19,6 +19,11 @@
   transition: all var(--normal) var(--ease-out);
 }
 
+.task-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 .task-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(0, 38, 61, 0.12);
@@ -105,4 +110,49 @@
   border-radius: 8px;
   border: 1px solid var(--border-light);
   margin-bottom: 0.75rem;
+}
+
+.empty-state {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  border: 1px dashed var(--border-light);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.skeleton-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-column {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.skeleton-card {
+  height: 60px;
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

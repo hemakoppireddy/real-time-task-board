@@ -5,13 +5,12 @@ import { useTaskStore } from "./store/taskStore";
 import Column from "./components/Column";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ErrorMessage from "./components/ErrorMessage";
-// import "./index.css";
+
 import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
 import "./styles/animations.css";
 import "./styles/responsive.css";
-
 
 function App() {
   const {
@@ -22,11 +21,15 @@ function App() {
     loadPersistedState,
   } = useTaskStore();
 
-  // Load persisted data + fetch initial API data
   useEffect(() => {
-    loadPersistedState();
-    fetchInitialData();
-  }, [fetchInitialData, loadPersistedState]);
+    const saved = localStorage.getItem("taskBoardState");
+
+    if (saved) {
+      loadPersistedState();
+    } else {
+      fetchInitialData();
+    }
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;
